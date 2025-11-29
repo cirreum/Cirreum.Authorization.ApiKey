@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<RootNamespace>Cirreum.Authorization</RootNamespace>
+		<Description>Authorization provider using Api Keys.</Description>
+		<PackageTags>cirreum;authorization;configuration;api key</PackageTags>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Cirreum.AuthorizationProvider" Version="1.0.7" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Using Include="Cirreum.Providers" />
+	</ItemGroup>
+
+</Project>
