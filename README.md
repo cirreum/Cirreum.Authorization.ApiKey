@@ -20,6 +20,15 @@
 - **Role-based authorization** - Configure roles per client for fine-grained access control
 - **Seamless integration** - Works alongside audience-based providers (Entra, Okta) in the same application
 
+#### Dynamic API Key Resolution (NEW)
+
+For scenarios with hundreds of partners/customers, use database-backed dynamic resolution:
+
+- **Efficient database lookup** - Use `X-Client-Id` header to query only relevant keys
+- **Built-in caching** - Configurable TTL to reduce database load
+- **Composite resolvers** - Chain config-based and database-backed resolvers
+- **Extensible base class** - Implement `DynamicApiKeyClientResolver` for custom storage
+
 ### Use Cases
 
 - Service-to-service communication
@@ -197,6 +206,85 @@ Multiple clients can use the same header name with different keys:
 ```
 
 The `ApiKeyClientRegistry` validates the provided key against all clients registered for that header and returns the matching client, enabling different roles and identities per key.
+
+## Dynamic API Key Resolution
+
+For large-scale deployments with many partners/customers, implement database-backed resolution:
+
+### Basic Setup
+
+```csharp
+builder
+    .AddAuthorization()
+    .AddDynamicApiKeys<DatabaseApiKeyResolver>(
+        headers: ["X-Api-Key"],
+        options => options.WithCaching(TimeSpan.FromMinutes(5)));
+```
+
+### Implementing a Custom Resolver
+
+```csharp
+public class DatabaseApiKeyResolver : DynamicApiKeyClientResolver {
+    private readonly IDbConnection _db;
+
+    public DatabaseApiKeyResolver(
+        IApiKeyValidator validator,
+        IOptions<ApiKeyValidationOptions> options,
+        IDbConnection db,
+        ILogger<DatabaseApiKeyResolver> logger)
+        : base(validator, options, logger) {
+        _db = db;
+    }
+
+    public override IReadOnlySet<string> SupportedHeaders =>
+        new HashSet<string> { "X-Api-Key" };
+
+    protected override async Task<IEnumerable<StoredApiKey>> LookupKeysAsync(
+        string headerName,
+        ApiKeyLookupContext context,
+        CancellationToken cancellationToken) {
+
+        // Use X-Client-Id header for efficient database lookup
+        var clientId = context.GetHeader("X-Client-Id");
+        if (!string.IsNullOrEmpty(clientId)) {
+            return await _db.QueryAsync<StoredApiKey>(
+                "SELECT * FROM ApiKeys WHERE ClientId = @ClientId AND IsActive = 1",
+                new { ClientId = clientId });
+        }
+
+        // Fallback: return all keys for the header (less efficient)
+        return await _db.QueryAsync<StoredApiKey>(
+            "SELECT * FROM ApiKeys WHERE HeaderName = @HeaderName AND IsActive = 1",
+            new { HeaderName = headerName });
+    }
+}
+```
+
+### With Caching
+
+```csharp
+builder
+    .AddAuthorization()
+    .AddDynamicApiKeys<DatabaseApiKeyResolver>(
+        headers: ["X-Api-Key"],
+        options => options.WithCaching(caching => {
+            caching.DefaultExpiration = TimeSpan.FromMinutes(5);
+            caching.SlidingExpiration = TimeSpan.FromMinutes(1);
+        }));
+```
+
+### Composite Resolution (Config + Database)
+
+Static keys from appsettings are automatically checked first, then the dynamic resolver:
+
+```csharp
+// Config keys (appsettings.json) + Database keys - automatic composite
+builder
+    .AddAuthorization()
+    .AddDynamicApiKeys<DatabaseApiKeyResolver>(
+        headers: ["X-Api-Key"],
+        options => options.WithCaching(TimeSpan.FromMinutes(5)));
+```
 
 ## Security Considerations
 

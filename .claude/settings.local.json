@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tree:*)",
+      "Bash(dir /S \"C:\\Cirreum\\Infrastructure\\Cirreum.Authorization.ApiKey\\src\" /B /A -D)",
+      "Bash(cat:*)",
+      "Bash(find:*)",
+      "Bash(dotnet build:*)",
+      "Bash(dotnet add:*)",
+      "Bash(dotnet restore:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
