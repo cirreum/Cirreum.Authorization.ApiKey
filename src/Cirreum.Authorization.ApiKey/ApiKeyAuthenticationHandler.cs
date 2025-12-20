@@ -1,7 +1,5 @@
 namespace Cirreum.AuthorizationProvider.ApiKey;
 
-using Cirreum.AuthorizationProvider.ApiKey;
-
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -48,7 +46,7 @@ public class ApiKeyAuthenticationHandler(
 		}
 
 		// Build lookup context with all request headers (except the key value itself for security)
-		var context = BuildLookupContext(this.Options.HeaderName);
+		var context = this.BuildLookupContext(this.Options.HeaderName);
 
 		var result = await clientResolver.ResolveAsync(
 			providedKey,
