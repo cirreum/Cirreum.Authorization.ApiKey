@@ -214,11 +214,11 @@ For large-scale deployments with many partners/customers, implement database-bac
 ### Basic Setup
 
 ```csharp
-builder
-    .AddAuthorization()
+builder.AddAuthorization(auth => auth
     .AddDynamicApiKeys<DatabaseApiKeyResolver>(
         headers: ["X-Api-Key"],
-        options => options.WithCaching(TimeSpan.FromMinutes(5)));
+        options => options.WithCaching())
+);
 ```
 
 ### Implementing a Custom Resolver
@@ -263,14 +263,14 @@ public class DatabaseApiKeyResolver : DynamicApiKeyClientResolver {
 ### With Caching
 
 ```csharp
-builder
-    .AddAuthorization()
+builder.AddAuthorization(auth => auth
     .AddDynamicApiKeys<DatabaseApiKeyResolver>(
         headers: ["X-Api-Key"],
         options => options.WithCaching(caching => {
             caching.DefaultExpiration = TimeSpan.FromMinutes(5);
             caching.SlidingExpiration = TimeSpan.FromMinutes(1);
-        }));
+        }))
+);
 ```
 
 ### Composite Resolution (Config + Database)
@@ -279,11 +279,11 @@ Static keys from appsettings are automatically checked first, then the dynamic r
 
 ```csharp
 // Config keys (appsettings.json) + Database keys - automatic composite
-builder
-    .AddAuthorization()
+builder.AddAuthorization(auth => auth
     .AddDynamicApiKeys<DatabaseApiKeyResolver>(
         headers: ["X-Api-Key"],
-        options => options.WithCaching(TimeSpan.FromMinutes(5)));
+        options => options.WithCaching())
+);
 ```
 
 ## Security Considerations
