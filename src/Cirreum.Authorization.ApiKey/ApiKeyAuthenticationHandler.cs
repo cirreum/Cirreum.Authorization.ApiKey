@@ -99,6 +99,19 @@ public class ApiKeyAuthenticationHandler(
 		return AuthenticateResult.Success(ticket);
 	}
 
+	/// <inheritdoc/>
+	protected override Task HandleChallengeAsync(AuthenticationProperties properties) {
+		this.Response.StatusCode = 401;
+		this.Response.Headers.WWWAuthenticate = $"ApiKey realm=\"{this.Scheme.Name}\"";
+		return Task.CompletedTask;
+	}
+
+	/// <inheritdoc/>
+	protected override Task HandleForbiddenAsync(AuthenticationProperties properties) {
+		this.Response.StatusCode = 403;
+		return Task.CompletedTask;
+	}
+
 	/// <summary>
 	/// Builds the lookup context from the current request headers.
 	/// </summary>
