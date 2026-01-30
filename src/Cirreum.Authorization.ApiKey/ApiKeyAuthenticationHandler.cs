@@ -1,5 +1,6 @@
-namespace Cirreum.AuthorizationProvider.ApiKey;
+namespace Cirreum.Authorization.ApiKey;
 
+using Cirreum.AuthorizationProvider.ApiKey;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;

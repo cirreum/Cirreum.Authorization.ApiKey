@@ -1,16 +1,16 @@
 ﻿# Cirreum Authorization Provider - API Key
 
-[![NuGet Version](https://img.shields.io/nuget/v/Cirreum.AuthorizationProvider.ApiKey.svg?style=flat-square&labelColor=1F1F1F&color=003D8F)](https://www.nuget.org/packages/Cirreum.AuthorizationProvider.ApiKey/)
-[![NuGet Downloads](https://img.shields.io/nuget/dt/Cirreum.AuthorizationProvider.ApiKey.svg?style=flat-square&labelColor=1F1F1F&color=003D8F)](https://www.nuget.org/packages/Cirreum.AuthorizationProvider.ApiKey/)
-[![GitHub Release](https://img.shields.io/github/v/release/cirreum/Cirreum.AuthorizationProvider.ApiKey?style=flat-square&labelColor=1F1F1F&color=FF3B2E)](https://github.com/cirreum/Cirreum.AuthorizationProvider.ApiKey/releases)
-[![License](https://img.shields.io/github/license/cirreum/Cirreum.AuthorizationProvider.ApiKey?style=flat-square&labelColor=1F1F1F&color=F2F2F2)](https://github.com/cirreum/Cirreum.AuthorizationProvider.ApiKey/blob/main/LICENSE)
+[![NuGet Version](https://img.shields.io/nuget/v/Cirreum.Authorization.ApiKey.svg?style=flat-square&labelColor=1F1F1F&color=003D8F)](https://www.nuget.org/packages/Cirreum.Authorization.ApiKey/)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/Cirreum.Authorization.ApiKey.svg?style=flat-square&labelColor=1F1F1F&color=003D8F)](https://www.nuget.org/packages/Cirreum.Authorization.ApiKey/)
+[![GitHub Release](https://img.shields.io/github/v/release/cirreum/Cirreum.Authorization.ApiKey?style=flat-square&labelColor=1F1F1F&color=FF3B2E)](https://github.com/cirreum/Cirreum.Authorization.ApiKey/releases)
+[![License](https://img.shields.io/github/license/cirreum/Cirreum.Authorization.ApiKey?style=flat-square&labelColor=1F1F1F&color=F2F2F2)](https://github.com/cirreum/Cirreum.Authorization.ApiKey/blob/main/LICENSE)
 [![.NET](https://img.shields.io/badge/.NET-10.0-003D8F?style=flat-square&labelColor=1F1F1F)](https://dotnet.microsoft.com/)
 
 **API key authentication provider for the Cirreum Framework**
 
 ## Overview
 
-**Cirreum.AuthorizationProvider.ApiKey** provides header-based API key authentication for ASP.NET Core applications within the Cirreum ecosystem. It enables secure service-to-service communication and broker authentication scenarios where OAuth/OIDC flows are not appropriate.
+**Cirreum.Authorization.ApiKey** provides header-based API key authentication for ASP.NET Core applications within the Cirreum ecosystem. It enables secure service-to-service communication and broker authentication scenarios where OAuth/OIDC flows are not appropriate.
 
 ### Key Features
 
@@ -39,7 +39,7 @@ For scenarios with hundreds of partners/customers, use database-backed dynamic r
 
 ## Installation
 ```bash
-dotnet add package Cirreum.AuthorizationProvider.ApiKey
+dotnet add package Cirreum.Authorization.ApiKey
 ```
 
 ## Configuration

@@ -1,4 +1,4 @@
-namespace Cirreum.AuthorizationProvider.ApiKey.Configuration;
+namespace Cirreum.Authorization.ApiKey.Configuration;
 
 using Cirreum.AuthorizationProvider.Configuration;
 

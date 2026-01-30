@@ -1,4 +1,4 @@
-namespace Cirreum.AuthorizationProvider.ApiKey.Configuration;
+namespace Cirreum.Authorization.ApiKey.Configuration;
 
 using Cirreum.AuthorizationProvider.Configuration;
 
@@ -11,8 +11,7 @@ using Cirreum.AuthorizationProvider.Configuration;
 /// <see cref="HeaderAuthorizationProviderInstanceSettings.ClientName"/>, and
 /// <see cref="HeaderAuthorizationProviderInstanceSettings.Roles"/> from the base class.
 /// </remarks>
-public class ApiKeyAuthorizationInstanceSettings : HeaderAuthorizationProviderInstanceSettings
-{
+public class ApiKeyAuthorizationInstanceSettings : HeaderAuthorizationProviderInstanceSettings {
 	// All properties inherited from HeaderAuthorizationProviderInstanceSettings
 	// Add any API key-specific properties here if needed in the future
 }
